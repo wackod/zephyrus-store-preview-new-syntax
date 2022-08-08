@@ -54,7 +54,7 @@ public Plugin myinfo =
 	name = "Store - Chat Processor item module with Scoreboard Tag",
 	author = "nuclear silo, Mesharsky, AiDN™", 
 	description = "Chat Processor item module by nuclear silo, the Scoreboard Tag for Zephyrus's by Mesharksy, for nuclear silo's edited store by AiDN™",
-	version = "2.7", 
+	version = "2.8", 
 	url = ""
 };
 
@@ -213,14 +213,13 @@ public Action Command_TGS(int client, int args)
 }
 
 public void Store_OnConfigExecuted(char[] prefix)
-{
-	g_cvDatabaseEntry = FindConVar("sm_store_database");
-	
+{	
 	strcopy(g_sChatPrefix, sizeof(g_sChatPrefix), prefix);
 	
-	if(FileEnable)
+	if(FileEnable && !g_hDatabase)
 	{
 		char buffer[128];
+		g_cvDatabaseEntry = FindConVar("sm_store_database");
 		g_cvDatabaseEntry.GetString(buffer, 128);
 		SQL_TConnect(SQLCallback_Connect, buffer);
 	}
